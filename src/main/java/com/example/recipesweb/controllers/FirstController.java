@@ -10,7 +10,7 @@ public class FirstController {
 
     @GetMapping("/")
     public String helloWeb() {
-        return "Приложение запущено";
+        return "Приложение запущено!";
     }
 
     @GetMapping("/info")
