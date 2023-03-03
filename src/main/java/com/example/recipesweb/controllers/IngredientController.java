@@ -18,8 +18,8 @@ public class IngredientController {
         ingredientService.getIngredient(count);
     }
 
-    @PostMapping("/add")
-    public void addIngredient(@RequestParam Ingredient ingredient) {
-        ingredientService.addIngredient(ingredient);
+    @GetMapping("/add")
+    public void addIngredient(@RequestParam String name, @RequestParam int count, @RequestParam String measureUnit) {
+        ingredientService.addIngredient(new Ingredient(name, count, measureUnit));
     }
 }

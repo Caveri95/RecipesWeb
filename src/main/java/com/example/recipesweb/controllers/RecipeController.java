@@ -1,8 +1,11 @@
 package com.example.recipesweb.controllers;
 
+import com.example.recipesweb.model.Ingredient;
 import com.example.recipesweb.model.Recipe;
 import com.example.recipesweb.services.RecipeService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/recipe")
@@ -18,8 +21,8 @@ public class RecipeController {
         recipeService.getRecipe(count);
     }
 
-   @PostMapping("/add")
-    public void addRecipe(@RequestParam Recipe recipe) {
-        recipeService.addRecipe(recipe);
+    @GetMapping("/add")
+    public void addRecipe(@RequestParam String name, @RequestParam int time, @RequestParam ArrayList<Ingredient> ingredients, @RequestParam ArrayList<String> instruction) {
+        recipeService.addRecipe(new Recipe(name, time, ingredients, instruction));
     }
 }
