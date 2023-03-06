@@ -14,12 +14,13 @@ public class IngredientServiceImpl implements IngredientService {
     private static final Map<Integer, Ingredient> ingredients = new TreeMap<>();
 
     @Override
-    public void addIngredient(Ingredient ingredient) {
+    public Ingredient addIngredient(Ingredient ingredient) {
         ingredients.put(ingredientCounter++, ingredient);
+        return null;
     }
 
     @Override
-    public void getIngredient(int count) {
+    public Ingredient getIngredient(int count) {
         try {
             if (ingredients.get(count) != null) {
                 ingredients.get(count);
@@ -27,6 +28,7 @@ public class IngredientServiceImpl implements IngredientService {
         } catch (IngredientNotFoundException e) {
             System.out.println(e.getMessage());
         }
+        return ingredients.get(count);
     }
 }
 

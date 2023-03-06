@@ -2,6 +2,7 @@ package com.example.recipesweb.controllers;
 
 import com.example.recipesweb.model.Ingredient;
 import com.example.recipesweb.services.IngredientService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,13 +14,18 @@ public class IngredientController {
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping("/get")
-    public void getIngredient(@RequestParam int count) {
-        ingredientService.getIngredient(count);
+    @GetMapping("/{count}")
+    public ResponseEntity<Ingredient> getIngredient(@PathVariable int count) {
+        Ingredient ingredient = ingredientService.getIngredient(count);
+        if (ingredient == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(ingredient);
     }
 
-    @GetMapping("/add")
-    public void addIngredient(@RequestParam String name, @RequestParam int count, @RequestParam String measureUnit) {
-        ingredientService.addIngredient(new Ingredient(name, count, measureUnit));
+    @PostMapping("/add")
+    public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient) {
+        Ingredient createIngredient = ingredientService.addIngredient(ingredient);
+        return ResponseEntity.ok(createIngredient);
     }
 }

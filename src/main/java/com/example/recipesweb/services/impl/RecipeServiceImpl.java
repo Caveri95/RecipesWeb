@@ -14,11 +14,12 @@ public class RecipeServiceImpl implements RecipeService {
     private static final Map< Integer, Recipe> recipes = new TreeMap<>();
 
     @Override
-    public void addRecipe(Recipe recipe) {
+    public Recipe addRecipe(Recipe recipe) {
         recipes.put(recipeCounter++, recipe);
+        return recipe;
     }
     @Override
-    public void getRecipe(int count) {
+    public Recipe getRecipe(int count) {
         try {
             if (recipes.get(count) != null) {
                 recipes.get(count);
@@ -26,5 +27,6 @@ public class RecipeServiceImpl implements RecipeService {
         } catch (RecipeNotFoundException e) {
             System.out.println(e.getMessage());
         }
+        return recipes.get(count);
     }
 }

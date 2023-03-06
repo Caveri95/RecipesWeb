@@ -1,11 +1,11 @@
 package com.example.recipesweb.controllers;
 
-import com.example.recipesweb.model.Ingredient;
 import com.example.recipesweb.model.Recipe;
 import com.example.recipesweb.services.RecipeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 
 @RestController
 @RequestMapping("/recipe")
@@ -16,13 +16,18 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/get")
-    public void getRecipe(@RequestParam int count) {
-        recipeService.getRecipe(count);
+    @GetMapping("/{count}")
+    public ResponseEntity<Recipe> getRecipe(@PathVariable int count) {
+        Recipe recipe = recipeService.getRecipe(count);
+        if (recipe == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipe);
     }
 
-    @GetMapping("/add")
-    public void addRecipe(@RequestParam String name, @RequestParam int time, @RequestParam ArrayList<Ingredient> ingredients, @RequestParam ArrayList<String> instruction) {
-        recipeService.addRecipe(new Recipe(name, time, ingredients, instruction));
+    @PostMapping("/add")
+    public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe recipe) {
+        Recipe createRecipe = recipeService.addRecipe(recipe);
+        return ResponseEntity.ok(createRecipe);
     }
 }
