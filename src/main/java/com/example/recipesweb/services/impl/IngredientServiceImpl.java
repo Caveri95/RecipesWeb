@@ -1,7 +1,6 @@
 package com.example.recipesweb.services.impl;
 
 import com.example.recipesweb.model.Ingredient;
-import com.example.recipesweb.services.IngredientNotFoundException;
 import com.example.recipesweb.services.IngredientService;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +15,11 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public Ingredient addIngredient(Ingredient ingredient) {
         ingredients.put(ingredientCounter++, ingredient);
-        return null;
+        return ingredient;
     }
 
     @Override
     public Ingredient getIngredient(int count) {
-        try {
-            if (ingredients.get(count) != null) {
-                ingredients.get(count);
-            } else throw new IngredientNotFoundException("Нет такого ингредиента!");
-        } catch (IngredientNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
         return ingredients.get(count);
     }
 }

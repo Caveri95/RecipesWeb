@@ -1,7 +1,6 @@
 package com.example.recipesweb.services.impl;
 
 import com.example.recipesweb.model.Recipe;
-import com.example.recipesweb.services.RecipeNotFoundException;
 import com.example.recipesweb.services.RecipeService;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +19,6 @@ public class RecipeServiceImpl implements RecipeService {
     }
     @Override
     public Recipe getRecipe(int count) {
-        try {
-            if (recipes.get(count) != null) {
-                recipes.get(count);
-            } else throw new RecipeNotFoundException("Нет такого рецепта!");
-        } catch (RecipeNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
         return recipes.get(count);
     }
 }
