@@ -5,6 +5,8 @@ import com.example.recipesweb.services.IngredientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
@@ -14,18 +16,44 @@ public class IngredientController {
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping("/{count}")
-    public ResponseEntity<Ingredient> getIngredient(@PathVariable int count) {
-        Ingredient ingredient = ingredientService.getIngredient(count);
+    @PostMapping
+    public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient) {
+        Ingredient createIngredient = ingredientService.addIngredient(ingredient);
+        return ResponseEntity.ok(createIngredient);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Ingredient> getIngredient(@PathVariable long id) {
+        Ingredient ingredient = ingredientService.getIngredient(id);
         if (ingredient == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(ingredient);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Ingredient> addIngredient(@RequestBody Ingredient ingredient) {
-        Ingredient createIngredient = ingredientService.addIngredient(ingredient);
-        return ResponseEntity.ok(createIngredient);
+    @PutMapping("/{id}")
+    public ResponseEntity<Ingredient> editIngredient(@PathVariable long id, @RequestBody Ingredient ingredient) {
+        Ingredient ingredient1 = ingredientService.editIngredient(id, ingredient);
+        if (ingredient1 == null) {
+            ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(ingredient1);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteIngredientById(@PathVariable long id) {
+        if (ingredientService.deleteIngredient(id)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Ingredient>> getAllIngredients() {
+        List<Ingredient> allIngredients = ingredientService.getAllIngredients();
+        if (allIngredients.size() == 0) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(allIngredients);
     }
 }
