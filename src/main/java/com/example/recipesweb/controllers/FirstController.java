@@ -1,11 +1,13 @@
 package com.example.recipesweb.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 
 @RestController
+@Tag(name = "Учебный контроллер", description = "его я создал первым")
 public class FirstController {
 
     @GetMapping("/")
@@ -21,6 +23,6 @@ public class FirstController {
         return "автор - " + name +
                 " название проекта - " + project +
                 " дата создания - " + data +
-                " Это первое тестовое веб-приложение для  хранения рецептов";
+                " Это первое тестовое веб-приложение для хранения рецептов";
     }
 }
