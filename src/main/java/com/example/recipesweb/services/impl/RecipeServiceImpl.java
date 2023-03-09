@@ -41,10 +41,6 @@ public class RecipeServiceImpl implements RecipeService {
     }
     @Override
     public List<Recipe> getAllRecipes() {
-        List<Recipe> allRecipes = new ArrayList<>();
-        for(Map.Entry<Long, Recipe> entry : recipes.entrySet()){
-            allRecipes.add(entry.getValue());
-        }
-        return allRecipes;
+        return new ArrayList<>(recipes.values());
     }
 }

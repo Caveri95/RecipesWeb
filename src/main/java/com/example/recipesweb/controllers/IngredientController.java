@@ -2,6 +2,7 @@ package com.example.recipesweb.controllers;
 
 import com.example.recipesweb.model.Ingredient;
 import com.example.recipesweb.services.IngredientService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ingredient")
+@Tag(name = "Ингредиенты", description = "CRUD операции и др.эндпоинты для работы с ингредиентами")
 public class IngredientController {
     private final IngredientService ingredientService;
 

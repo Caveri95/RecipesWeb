@@ -45,11 +45,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public List<Ingredient> getAllIngredients() {
-        List<Ingredient> allIngredients = new ArrayList<>();
-        for(Map.Entry<Long, Ingredient> entry : ingredients.entrySet()){
-            allIngredients.add(entry.getValue());
-        }
-        return allIngredients;
+        return new ArrayList<>(ingredients.values());
     }
 }
 
